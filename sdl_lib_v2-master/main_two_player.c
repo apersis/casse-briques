@@ -164,9 +164,9 @@ void KeyPressed(SDL_Keycode touche){
 			}
             break;
         }
-		case SDLK_h:
-            //touche h appuyé
-            //printf("H\n");
+		case SDLK_LEFT:
+            //touche flèche gauche appuyé
+            //printf("GAUCHE\n");
             if (gdpaddle2>=0 && gdpaddle2 > gdpaddle + taille_paddle)
 				gdpaddle2=gdpaddle2-20;
 			if(gdpaddle2<0)
@@ -175,10 +175,10 @@ void KeyPressed(SDL_Keycode touche){
                 gdpaddle2=gdpaddle+taille_paddle+10;
 			}
             break;
-        case SDLK_k:
+        case SDLK_RIGHT:
 		{
-            //touche k appuyés
-            //printf("K\n");
+            //touche flèche droite appuyés
+            //printf("DROITE\n");
             if (gdpaddle2<=WINDOW_WIDTH-taille_paddle){
 				gdpaddle2=gdpaddle2+20;
 			}
@@ -645,7 +645,7 @@ void overlay()
 		drawCircle((30*i)+20,900,TAILLE_BALL);
 }
 
-void drawBonus() // dessine les bonus et gere leur colision
+void drawBonus() // dessine les bonus et gere leur collision
 {
 	int i;
 	for (i=0;i<NLIGNES*NBRIQUE;i++)
@@ -657,6 +657,8 @@ void drawBonus() // dessine les bonus et gere leur colision
 			if (bonus_level1[i].pos_y+30>=HAUTEUR_PADDLE && bonus_level1[i].pos_y<=HAUTEUR_PADDLE+30) //collision avec paddle haut bas
 			{
 				if (gdpaddle<=bonus_level1[i].pos_x+50 && bonus_level1[i].pos_x<(gdpaddle+taille_paddle))
+					bonus_level1[i].etat=2;
+				if (gdpaddle2<=bonus_level1[i].pos_x+50 && bonus_level1[i].pos_x<(gdpaddle2+taille_paddle)) //collision paddle2
 					bonus_level1[i].etat=2;
 			}
 			if(bonus_level1[i].pos_y+30>860)
@@ -680,11 +682,14 @@ void drawBonus() // dessine les bonus et gere leur colision
 				{
 					taille_paddle=taille_paddle+10;
 					gdpaddle=gdpaddle-5;
+					gdpaddle2=gdpaddle2-5;
 				}
 				if (taille_paddle+gdpaddle>=WINDOW_WIDTH)
 					gdpaddle=gdpaddle-10;
+					gdpaddle2=gdpaddle2-10;
 				if (gdpaddle<=0)
 					gdpaddle=gdpaddle+10;
+					gdpaddle2=gdpaddle2+10;
 				bonus_level1[i].etat=4;
 			}
 			if (bonus_level1[i].type==3)//malus 3, accelere la balle
@@ -700,6 +705,7 @@ void drawBonus() // dessine les bonus et gere leur colision
 				{
 					taille_paddle=taille_paddle-10;
 					gdpaddle=gdpaddle+5;
+					gdpaddle2=gdpaddle2+5;
 				}
 				bonus_level1[i].etat=4;
 			}
