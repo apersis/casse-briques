@@ -1,6 +1,9 @@
-# SDL_lib_v2
+# 🧱 Casse Briques
 
-## Description main.c
-- Squelette du programme avec boucle pour gestion event et exemple  :
-  - un carré et un cercle
-  - Vous pouvez deplacer un carré latteralement avec Q | D
+Le jeu est codé en C dans un [SDL](https://gitlab.com/ilanlo/sdl_lib_v2).
+
+Pour compiler et lancer le jeu sur système UNIX :
+```
+gcc -o main main.c function.c -lSDL2
+./main
+```
